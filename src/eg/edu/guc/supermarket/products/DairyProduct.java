@@ -9,7 +9,7 @@ public class DairyProduct extends GroceryProduct{
 	}
 	
 	public String toString(){
-		return super.toString() + "Fat Level: " + this.f + "\n";
+		return super.toString() + "\n" + "Fat Level: " + this.f;
 	}
 	
 

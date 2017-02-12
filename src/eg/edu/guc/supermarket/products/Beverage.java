@@ -9,7 +9,7 @@ public class Beverage extends GroceryProduct{
 		this.s = s;
 	}
 	public String toString(){
-		return super.toString() + "Sugar Level: " + this.s + "\n";
+		return super.toString() + "\n" + "Sugar Level: " + this.s;
 	}
 	
 	
