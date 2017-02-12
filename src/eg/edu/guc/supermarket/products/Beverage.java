@@ -9,7 +9,7 @@ public class Beverage extends GroceryProduct{
 		this.s = s;
 	}
 	public String toString(){
-		return super.toString() + "SugarLevel " + this.s;
+		return super.toString() + "SugarLevel: " + this.s;
 	}
 	
 	public double getActualPrice(){
