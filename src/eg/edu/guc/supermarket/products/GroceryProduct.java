@@ -11,9 +11,9 @@ public class GroceryProduct {
 		this.discount = discount;
 	}
 	public String toString(){
-		return "Name " + this.name +
-				"Price " + this.price +
-				"Discount " + this.discount;
+		return "Name: " + this.name
+				 +"Price: " + this.price + " L.E."
+				  + "Discount: " + this.discount + " %";
 	}
 	public double getPrice() {
 		return price;
