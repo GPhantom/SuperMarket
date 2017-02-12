@@ -9,12 +9,8 @@ public class DairyProduct extends GroceryProduct{
 	}
 	
 	public String toString(){
-		return super.toString() + "Fat Level: " + this.f;
+		return super.toString() + "Fat Level: " + this.f + "\n";
 	}
 	
-	public double getActualPrice(){
-		double discountAmount = this.getPrice() * (this.getDiscount()/100);
-		return this.getPrice() - discountAmount;
-	}
 
 }

@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 import eg.edu.guc.supermarket.products.Beverage;
 import eg.edu.guc.supermarket.products.DairyProduct;
 import eg.edu.guc.supermarket.products.Fat;
+import eg.edu.guc.supermarket.products.FatLevel;
 import eg.edu.guc.supermarket.products.GroceryProduct;
 import eg.edu.guc.supermarket.products.SugarLevel;
 
@@ -49,7 +50,7 @@ public class Lab2AllTests {
 	@Test(timeout = 1000)
 	public void testGetActualPrice()
 	{
-		DairyProduct milk= new DairyProduct("Juhayna Milk", 10, 5, Fat.FULLCREAM);
+		DairyProduct milk= new DairyProduct("Juhayna Milk", 10, 5, FatLevel.FULLCREAM);
 		assertEquals("The actual price should be 9.5", 9.5, milk.getActualPrice(), 0.1);
 	}
 	//toString -> Grocery
@@ -64,7 +65,7 @@ public class Lab2AllTests {
 	@Test(timeout = 1000)
 	public void testToStringDairyProduct()
 	{
-		DairyProduct milk= new DairyProduct("Juhayna Milk", 10, 5, Fat.FULLCREAM);
+		DairyProduct milk= new DairyProduct("Juhayna Milk", 10, 5, FatLevel.FULLCREAM);
 		assertEquals("The toString() method should return: \n Name: Juhayna Milk \n Price: 10.0 \n Discount: 5.0 %\n Fat Level: FULLCREAM",
 				"Name: Juhayna Milk\nPrice: 10.0\nDiscount: 5.0 %\nFat Level: FULLCREAM", milk.toString());
 	}

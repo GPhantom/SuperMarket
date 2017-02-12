@@ -11,9 +11,10 @@ public class GroceryProduct {
 		this.discount = discount;
 	}
 	public String toString(){
-		return "Name: " + this.name
-				 +"Price: " + this.price + " L.E."
-				  + "Discount: " + this.discount + " %";
+		return "Name: " + this.name + "\n"
+				 +"Price: " + this.price + "\n"
+				  + "Discount: " + this.discount + " %"
+				  	+ "\n";
 	}
 	public double getPrice() {
 		return price;
@@ -31,4 +32,8 @@ public class GroceryProduct {
 		return name;
 	}
 	
+	public double getActualPrice(){
+		double discountAmount = this.getPrice() * (this.getDiscount()/100);
+		return this.getPrice() - discountAmount;
+	}
 }
