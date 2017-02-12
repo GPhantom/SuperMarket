@@ -3,9 +3,9 @@ package eg.edu.guc.supermarket.products;
 public class GroceryProduct {
 	private final String name;
 	private double price;
-	private int discount;
+	private double discount;
 	
-	public GroceryProduct(String name, double price, int discount){
+	public GroceryProduct(String name, double price, double discount){
 		this.name     = name;
 		this.price    = price;
 		this.discount = discount;
@@ -21,10 +21,10 @@ public class GroceryProduct {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public int getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
-	public void setDiscount(int discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
 	public String getName() {

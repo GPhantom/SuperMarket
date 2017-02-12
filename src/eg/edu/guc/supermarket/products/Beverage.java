@@ -4,7 +4,7 @@ public class Beverage extends GroceryProduct{
 	
 	SugarLevel s;
 	
-	public Beverage(String name, double price, int discount, SugarLevel s){
+	public Beverage(String name, double price, double discount, SugarLevel s){
 		super(name, price, discount);
 		this.s = s;
 	}
