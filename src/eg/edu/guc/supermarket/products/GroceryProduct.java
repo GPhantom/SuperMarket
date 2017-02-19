@@ -47,5 +47,5 @@ public abstract class GroceryProduct {
 				this.getDiscount() == g.getDiscount());
 	}
 	
-	abstract boolean refrigerate();
+	public abstract boolean refrigerate();
 }
