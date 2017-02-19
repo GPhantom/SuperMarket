@@ -33,5 +33,9 @@ public class Beverage extends GroceryProduct implements Drinkable{
 	public boolean refrigerate() {
 		return false;
 	}
+	
+	public boolean isHealthy(){
+		return (this.s != SugarLevel.ADDED_SUGAR);
+	}
 
 }
