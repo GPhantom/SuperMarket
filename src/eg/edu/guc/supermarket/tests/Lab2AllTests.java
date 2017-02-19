@@ -1,6 +1,5 @@
 package eg.edu.guc.supermarket.tests;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -9,40 +8,42 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import eg.edu.guc.supermarket.products.Beverage;
 import eg.edu.guc.supermarket.products.DairyProduct;
+import eg.edu.guc.supermarket.products.Drinkable;
 import eg.edu.guc.supermarket.products.Fat;
-import eg.edu.guc.supermarket.products.FatLevel;
 import eg.edu.guc.supermarket.products.GroceryProduct;
 import eg.edu.guc.supermarket.products.SugarLevel;
 
 public class Lab2AllTests {
 	
-	//--------------------------------Checking methods in superclass/subclasses-----------------------------------
-	//Private
+	//------------------------------------Test Abstraction----------------------------------------------------------------------
 	@Test(timeout = 1000)
-	public void testMethodsInSuperclass()
+	public void testAbstraction() throws NoSuchMethodException
 	{
-		Method[] methods= GroceryProduct.class.getDeclaredMethods();
-		assertTrue("The method \"getActualPrice\" should be declared in the GroceryProduct class", containsMethodName(methods, "getActualPrice"));
-		assertTrue("The method \"toString\" should be declared in the GroceryProduct class", containsMethodName(methods, "toString"));
+		assertTrue(Modifier.isAbstract(GroceryProduct.class.getModifiers()));
+		//private
+		assertTrue(Modifier.isAbstract(GroceryProduct.class.getMethod("refrigerate", new Class[0]).getModifiers()));
 	}
+	//------------------------------------Test Interface----------------------------------------------------------------------
 	
 	@Test(timeout = 1000)
-	public void testMethodsInSubclasses()
-	{
-		Method[] methodsDairyProduct= DairyProduct.class.getDeclaredMethods();
-		assertFalse("The method \"getActualPrice\" should be not declared in the DairyProduct class", containsMethodName(methodsDairyProduct, "getActualPrice"));
-		assertTrue("The method \"toString\" should be overriden in the DairyProduct class", containsMethodName(methodsDairyProduct, "toString"));
+	    public final void testInterface() {
+			
+			assertEquals("Drinkable should be an Interface", 1537, Drinkable.class.getModifiers());
 		
-		Method[] methodsBeverage= Beverage.class.getDeclaredMethods();
-		assertFalse("The method \"getActualPrice\" should be not declared in the Beverage class", containsMethodName(methodsBeverage, "getActualPrice"));
-		assertTrue("The method \"toString\" should be overriden in the Beverage class", containsMethodName(methodsBeverage, "toString"));
-	}
-	//---------------------------------------------------Checking Final methods----------------------------------------------------------------
-	//Private
+			Drinkable drink= new Beverage("Pepsi", 5, 0, SugarLevel.ADDED_SUGAR);
+			Drinkable drink2= new Beverage("Pure Apple", 5, 0, SugarLevel.NO_ADDED_SUGAR);
+			Drinkable drink3= new Beverage("Sprite", 5, 0, SugarLevel.LIGHT);
+			Drinkable drink4= new Beverage("Pepsi", 5, 0, SugarLevel.ZERO);
+		    assertFalse("A drink with added sugar is unhealthy", drink.isHealthy());
+		    assertTrue("A drink with no sugar is healthy", drink2.isHealthy());
+		    assertTrue("A drink with light sugar level is healthy", drink3.isHealthy());
+		    assertTrue("A drink with zero sugar level is healthy", drink4.isHealthy());
+	    }
+	//---------------------------------------------------Checking Overloading----------------------------------------------------------------
+	
 	@Test(timeout = 1000)
-	public void testFinalMethodsDeclaration() throws NoSuchFieldException, NoSuchMethodException, SecurityException
-	{
-		assertTrue(Modifier.isFinal(GroceryProduct.class.getDeclaredMethod("getActualPrice", null).getModifiers()));
+	public void testOverloading(){
+		assertTrue("The method \"getActualPrice(int extra)\" should be declared in the Beverage class", containsMethod(Beverage.class, "getActualPrice",new Class[]{double.class}));
 	}
 	//--------------------------------------Checking methods work correctly----------------------------------------------
 	
@@ -50,40 +51,68 @@ public class Lab2AllTests {
 	@Test(timeout = 1000)
 	public void testGetActualPrice()
 	{
-		DairyProduct milk= new DairyProduct("Juhayna Milk", 10, 5, FatLevel.FULLCREAM);
-		assertEquals("The actual price should be 9.5", 9.5, milk.getActualPrice(), 0.1);
+		Beverage beverage= new Beverage("Schweppes Pomegranate", 10, 5, SugarLevel.ADDED_SUGAR);
+		assertEquals("The actual price should be 9.0", 9.0, beverage.getActualPrice(5), 0.1);
 	}
-	//toString -> Grocery
-		@Test(timeout = 1000)
-		public void testToStringGroceryProduct()
-		{
-			GroceryProduct milk= new GroceryProduct("Juhayna Milk", 10, 5);
-			assertEquals("The toString() method should return: \n Name: Juhayna Milk \n Price: 10.0 \n Discount: 5.0 %",
-					"Name: Juhayna Milk\nPrice: 10.0\nDiscount: 5.0 %", milk.toString());
-		}
-	//toString -> Dairy
-	@Test(timeout = 1000)
-	public void testToStringDairyProduct()
+	//equals -> Dairy
+	@Test//(timeout = 1000)
+	public void testEqualsDairyProductPolymorphism()
 	{
-		DairyProduct milk= new DairyProduct("Juhayna Milk", 10, 5, FatLevel.FULLCREAM);
-		assertEquals("The toString() method should return: \n Name: Juhayna Milk \n Price: 10.0 \n Discount: 5.0 %\n Fat Level: FULLCREAM",
-				"Name: Juhayna Milk\nPrice: 10.0\nDiscount: 5.0 %\nFat Level: FULLCREAM", milk.toString());
+		DairyProduct milk1= new DairyProduct("Juhayna Milk", 10, 5, Fat.FULLCREAM);
+		DairyProduct milk2= new DairyProduct("Juhayna Milk", 10, 5, Fat.FULLCREAM);
+		DairyProduct milk3= new DairyProduct("Labanita", 10, 5, Fat.FULLCREAM);
+		DairyProduct milk4= new DairyProduct("Juhayna Milk", 9, 5, Fat.FULLCREAM);
+		DairyProduct milk5= new DairyProduct("Juhayna Milk", 9, 25, Fat.FULLCREAM);
+		DairyProduct milk6= new DairyProduct("Juhayna Milk", 9, 25, Fat.SKIMMED);
+		assertTrue("The two instances are equal", milk1.equals(milk2));
+		assertFalse("The two instances are not equal, they have different names", milk1.equals(milk3));
+		assertFalse("The two instances are not equal, they have different prices", milk1.equals(milk4));
+		assertFalse("The two instances are not equal, they have different discounts", milk1.equals(milk5));
+		assertFalse("The two instances are not equal, they have different fat levels", milk1.equals(milk6));
 	}
-	//toString -> Beverage
-	//Private
+	//equals -> Beverage
+	//equals -> Dairy
+	//private
 	@Test(timeout = 1000)
-	public void testToStringBeverage()
+	public void testEqualsBeveragePolymorphism()
 	{
-		Beverage beverage= new Beverage("Schweppes Pomegranate", 5, 25, SugarLevel.ADDED_SUGAR);
-		assertEquals("The toString() method should return: \n Name: Schweppes Pomegranate \n Price: 5.0 \n Discount: 25.0 %\n Sugar Level: ADDED_SUGAR\n",
-				"Name: Schweppes Pomegranate\nPrice: 5.0\nDiscount: 25.0 %\nSugar Level: ADDED_SUGAR", beverage.toString());
+		assertTrue("The method \"equals\" should be declared in the GroceryProduct class", containsMethod(GroceryProduct.class, "equals", new Class[]{Object.class}));
+		
+		assertTrue("The method \"equals\" should be declared in the DairyProduct class", containsMethod(DairyProduct.class, "equals", new Class[]{Object.class}));
+		
+		assertTrue("The method \"equals\" should be declared in the Beverage class", containsMethod(Beverage.class, "equals", new Class[]{Object.class}));
+		
+		Beverage beverage1= new Beverage("Schweppes Pomegranate", 10, 5, SugarLevel.ADDED_SUGAR);
+		Beverage beverage2= new Beverage("Schweppes Pomegranate", 10, 5, SugarLevel.ADDED_SUGAR);
+		Beverage beverage3= new Beverage("Sprite", 10, 5, SugarLevel.ADDED_SUGAR);
+		Beverage beverage4= new Beverage("Schweppes Pomegranate", 9, 5, SugarLevel.ADDED_SUGAR);
+		Beverage beverage5= new Beverage("Schweppes Pomegranate", 9, 25, SugarLevel.ADDED_SUGAR);
+		Beverage beverage6= new Beverage("Schweppes Pomegranate", 9, 25, SugarLevel.ADDED_SUGAR);
+		assertTrue("The two instances are equal", beverage1.equals(beverage2));
+		assertFalse("The two instances are not equal, they have different names", beverage1.equals(beverage3));
+		assertFalse("The two instances are not equal, they have different prices", beverage1.equals(beverage4));
+		assertFalse("The two instances are not equal, they have different discounts", beverage1.equals(beverage5));
+		assertFalse("The two instances are not equal, they have different fat levels", beverage1.equals(beverage6));
 	}
+	//equals -> diff types
+	//private
+	@Test(timeout = 1000)
+	public void testEqualsPolymorphism()
+	{
+		DairyProduct milk= new DairyProduct("Juhayna Milk", 10, 5, Fat.FULLCREAM);
+		Beverage beverage= new Beverage("Schweppes Pomegranate", 10, 5, SugarLevel.ADDED_SUGAR);
+		assertFalse("When comparing different types of grocery products, the method should return false with no exception", milk.equals(beverage));		
+		assertFalse("When comparing different types of grocery products, the method should return false with no exception", beverage.equals(milk));
+	}
+	
 	//--------------------------------------------Helper methods----------------------------------------------------------
-	public static boolean containsMethodName(Method[]methods, String name){
-		for (Method method : methods) {
-			if(method.getName().equals(name))
-				return true;
+	public static boolean containsMethod(Class c, String name, Class[] parameters){
+		try{
+			c.getDeclaredMethod(name, parameters);
+			return true;
 		}
-		return false;
+		catch(NoSuchMethodException e){
+			return false;
+		}
 	}
 }
