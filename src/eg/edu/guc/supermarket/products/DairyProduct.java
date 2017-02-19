@@ -12,11 +12,7 @@ public class DairyProduct extends GroceryProduct{
 		return super.toString() + "\n" + "Fat Level: " + this.f;
 	}
 	
-	public boolean equals(DairyProduct p){
-		return ((this.getName() == p.getName()) &&
-				this.getPrice() == p.getPrice() &&
-				this.getDiscount() == p.getDiscount());
-	}
+	
 	
 
 }

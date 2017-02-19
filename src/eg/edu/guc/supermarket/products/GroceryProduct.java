@@ -36,4 +36,11 @@ public class GroceryProduct {
 		double discountAmount = this.getPrice() * (this.getDiscount()/100);
 		return this.getPrice() - discountAmount;
 	}
+	
+	public boolean equals(Object p){
+		GroceryProduct g = (GroceryProduct) p;
+		return ((this.getName() == g.getName()) &&
+				this.getPrice() == g.getPrice() &&
+				this.getDiscount() == g.getDiscount());
+	}
 }
