@@ -1,6 +1,6 @@
 package eg.edu.guc.supermarket.products;
 
-public class Beverage extends GroceryProduct{
+public class Beverage extends GroceryProduct implements Drinkable{
 	
 	SugarLevel s;
 	
