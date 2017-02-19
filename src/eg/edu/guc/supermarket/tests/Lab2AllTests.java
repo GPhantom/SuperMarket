@@ -10,6 +10,7 @@ import eg.edu.guc.supermarket.products.Beverage;
 import eg.edu.guc.supermarket.products.DairyProduct;
 import eg.edu.guc.supermarket.products.Drinkable;
 import eg.edu.guc.supermarket.products.Fat;
+import eg.edu.guc.supermarket.products.FatLevel;
 import eg.edu.guc.supermarket.products.GroceryProduct;
 import eg.edu.guc.supermarket.products.SugarLevel;
 
@@ -58,12 +59,12 @@ public class Lab2AllTests {
 	@Test//(timeout = 1000)
 	public void testEqualsDairyProductPolymorphism()
 	{
-		DairyProduct milk1= new DairyProduct("Juhayna Milk", 10, 5, Fat.FULLCREAM);
-		DairyProduct milk2= new DairyProduct("Juhayna Milk", 10, 5, Fat.FULLCREAM);
-		DairyProduct milk3= new DairyProduct("Labanita", 10, 5, Fat.FULLCREAM);
-		DairyProduct milk4= new DairyProduct("Juhayna Milk", 9, 5, Fat.FULLCREAM);
-		DairyProduct milk5= new DairyProduct("Juhayna Milk", 9, 25, Fat.FULLCREAM);
-		DairyProduct milk6= new DairyProduct("Juhayna Milk", 9, 25, Fat.SKIMMED);
+		DairyProduct milk1= new DairyProduct("Juhayna Milk", 10, 5, FatLevel.FULLCREAM);
+		DairyProduct milk2= new DairyProduct("Juhayna Milk", 10, 5, FatLevel.FULLCREAM);
+		DairyProduct milk3= new DairyProduct("Labanita", 10, 5, FatLevel.FULLCREAM);
+		DairyProduct milk4= new DairyProduct("Juhayna Milk", 9, 5, FatLevel.FULLCREAM);
+		DairyProduct milk5= new DairyProduct("Juhayna Milk", 9, 25, FatLevel.FULLCREAM);
+		DairyProduct milk6= new DairyProduct("Juhayna Milk", 9, 25, FatLevel.SKIMMED);
 		assertTrue("The two instances are equal", milk1.equals(milk2));
 		assertFalse("The two instances are not equal, they have different names", milk1.equals(milk3));
 		assertFalse("The two instances are not equal, they have different prices", milk1.equals(milk4));
@@ -99,7 +100,7 @@ public class Lab2AllTests {
 	@Test(timeout = 1000)
 	public void testEqualsPolymorphism()
 	{
-		DairyProduct milk= new DairyProduct("Juhayna Milk", 10, 5, Fat.FULLCREAM);
+		DairyProduct milk= new DairyProduct("Juhayna Milk", 10, 5, FatLevel.FULLCREAM);
 		Beverage beverage= new Beverage("Schweppes Pomegranate", 10, 5, SugarLevel.ADDED_SUGAR);
 		assertFalse("When comparing different types of grocery products, the method should return false with no exception", milk.equals(beverage));		
 		assertFalse("When comparing different types of grocery products, the method should return false with no exception", beverage.equals(milk));
