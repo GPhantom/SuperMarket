@@ -24,6 +24,10 @@ public class DairyProduct extends GroceryProduct{
 				this.f == g.f);
 	}
 	
+	@Override
+	public boolean refrigerate() {
+		return true;
+	}
 	
 
 }

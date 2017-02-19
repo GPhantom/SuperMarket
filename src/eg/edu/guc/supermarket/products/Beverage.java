@@ -28,5 +28,10 @@ public class Beverage extends GroceryProduct{
 				this.getDiscount() == g.getDiscount() &&
 				this.s == g.s);
 	}
+	
+	@Override
+	public boolean refrigerate() {
+		return false;
+	}
 
 }
