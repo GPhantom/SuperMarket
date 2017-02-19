@@ -16,5 +16,17 @@ public class Beverage extends GroceryProduct{
 		double finalprice = this.getPrice() - (this.getPrice() * ((this.getDiscount() + extra) / 100));
 		return finalprice;
 	}
+	
+	@Override
+	public boolean equals(Object p){
+		if (!(p instanceof Beverage)){
+			return false;
+		}
+		Beverage g = (Beverage) p;
+		return (this.getName() == g.getName() &&
+				this.getPrice() == g.getPrice() &&
+				this.getDiscount() == g.getDiscount() &&
+				this.s == g.s);
+	}
 
 }

@@ -12,6 +12,17 @@ public class DairyProduct extends GroceryProduct{
 		return super.toString() + "\n" + "Fat Level: " + this.f;
 	}
 	
+	@Override
+	public boolean equals(Object p){
+		if (!(p instanceof DairyProduct)){
+			return false;
+		}
+		DairyProduct g = (DairyProduct) p;
+		return (this.getName() == g.getName() &&
+				this.getPrice() == g.getPrice() &&
+				this.getDiscount() == g.getDiscount() &&
+				this.f == g.f);
+	}
 	
 	
 
