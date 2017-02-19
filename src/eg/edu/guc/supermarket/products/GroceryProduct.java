@@ -1,6 +1,6 @@
 package eg.edu.guc.supermarket.products;
 
-public class GroceryProduct {
+public abstract class GroceryProduct {
 	private final String name;
 	private double price;
 	private double discount;
