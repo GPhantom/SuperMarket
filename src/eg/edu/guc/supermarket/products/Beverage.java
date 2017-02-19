@@ -12,6 +12,9 @@ public class Beverage extends GroceryProduct{
 		return super.toString() + "\n" + "Sugar Level: " + this.s;
 	}
 	
-	
+	public double getActualPrice(double extra){
+		double finalprice = this.getPrice() - (this.getPrice() * ((this.getDiscount() + extra) / 100));
+		return finalprice;
+	}
 
 }
