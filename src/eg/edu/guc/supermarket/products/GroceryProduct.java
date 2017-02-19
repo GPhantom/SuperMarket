@@ -38,6 +38,9 @@ public class GroceryProduct {
 	}
 	
 	public boolean equals(Object p){
+		if (!(p instanceof GroceryProduct)){
+			return false;
+		}
 		GroceryProduct g = (GroceryProduct) p;
 		return ((this.getName() == g.getName()) &&
 				this.getPrice() == g.getPrice() &&
